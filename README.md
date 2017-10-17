@@ -1,4 +1,4 @@
-# chrome-utip-for-youtube
+# Utip for Youtube
 Chrome Extension for simplify Utip usage on Youtube.
 
 ## Use
