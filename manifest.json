@@ -1,15 +1,23 @@
 {
   "manifest_version": 2,
   "name": "Utip for Youtube",
-  "version": "1.0",
+  "version": "0.0.0.1",
   "description": "Automatically open a popup when you like a youtube video with a utip link in description.",
   "icons": {
     "128": "icon-128.png"
   },
+  "background": {
+    "scripts":["background.js"]
+  },
   "content_scripts": [
     {
-      "matches": ["*://www.youtube.com/watch?v=*"],
+      "matches": ["*://www.youtube.com/*"],
+      "css": ["content.css"],
       "js": ["jquery.min.js","content.js"]
     }
-  ]
+  ],
+  "permissions": [
+    "tabs"
+  ],
+  "author": "https://github.com/Jorand"
 }

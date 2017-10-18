@@ -1,0 +1,21 @@
+.utip4yt-container {
+	position: absolute;
+	top: 0;
+	left: -34px;
+	height: 100%;
+}
+
+	.utip4yt-button {
+		display: block;
+		width: 32px;
+		height: 36px;
+		text-align: center;
+		cursor: pointer;
+	}
+
+		.utip4yt-button > svg {
+			display: inline-block;
+			width: 20px;
+			height: 20px;
+			margin-top: 9px;
+		}
