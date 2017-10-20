@@ -6,9 +6,12 @@ var SUCESS_MIN = 2;
 
 var timer,
 		retryCount = 0,
-		sucessCount = 0; // Count of link found in one time
+		sucessCount = 0, // Count of link found in one time
+		options = {};
 
 function init() {
+	getOptions();
+
 	clearTimeout(timer);
 	timer = setTimeout(function() {
 
@@ -39,26 +42,40 @@ function init() {
 			init();
 		}
 
-		$('#top-level-buttons ytd-toggle-button-renderer:first-child > a, .utip4yt-button').on("click", function() {
-			if (link) {
-				window.open(link, "popupWindow", "width=600,height=600,scrollbars=yes");
-			}
-		});
+		$('.utip4yt-button').on("click", openUtip(link));
+
+		if(options.thumbUp) {
+			$('#top-level-buttons ytd-toggle-button-renderer:first-child > a').on("click", openUtip(link));
+		}
 
 	}, RETRY_DELAY_MS);
 };
 
+function openUtip(link) {
+	if (link) {
+		window.open(link, "popupWindow", "width=600,height=600,scrollbars=yes");
+	}
+}
+
 function reset() {
-	retryCount = 0;
-	sucessCount = 0;
 	$('.utip4yt-container').remove();
 	$('#top-level-buttons ytd-toggle-button-renderer:first-child > a, .utip4yt-button').off("click");
 };
 
 function refresh() {
 	reset();
+	retryCount = 0;
+	sucessCount = 0;
 	$(document).ready(init);
 };
+
+function getOptions() {
+	chrome.storage.sync.get({
+    thumbUpOption: true
+  }, function(items) {
+    options.thumbUp = items.thumbUpOption;
+  });
+}
 
 chrome.extension.onMessage.addListener(function(request, sender, response) {
 	if (request.type === 'changePage') {
