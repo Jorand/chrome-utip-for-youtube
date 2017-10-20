@@ -1,0 +1,70 @@
+body {
+	font-family: 'Lucida Grande', 'Segoe UI', Arial, 'Microsoft Jhenghei', PMingLiu, sans-serif;
+	font-size: 80%;
+}
+a {
+	color: #000;
+	text-decoration: none;
+	font-weight: bold
+}
+a:hover {
+	text-decoration: underline
+}
+
+section {
+	-webkit-padding-start: 18px;
+	-webkit-padding-end: 18px;
+	margin-bottom: 24px;
+	margin-top: 8px
+}
+section > div > div {
+	padding-bottom: 10px;
+}
+.clear {
+	height: 10px
+}
+.line {
+	border-bottom: 1px solid #EEE;
+	margin-bottom: 20px
+}
+
+.radiobox, .checkbox, .selectbox {
+	margin: 0.65em 0;
+	min-height: 28px;
+}
+.radiobox {
+	line-height: 30px;
+}
+.checkbox {
+	line-height: 28px;
+}
+.selectbox {
+	line-height: 22px;
+}
+.radiobox label input ~ span, .checkbox label input ~ span {
+	-webkit-margin-start: 0.6em
+}
+.selectbox label span {
+	margin: 0 0.4ex;
+}
+
+#options_container {
+	width: 500px;
+	-webkit-margin-end: 24px;
+	margin: 0 auto;
+	padding-top: 8px;
+}
+
+#status {
+	position: fixed;
+	top: 10px;
+	right: 10px;
+	background: #ddd;
+	display: none;
+	padding: 5px;
+	border-radius: 4px;
+}
+
+#status.visible {
+	display: block;
+}

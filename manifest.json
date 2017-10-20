@@ -6,6 +6,10 @@
   "icons": {
     "128": "icon-128.png"
   },
+  "options_ui": {
+    "page": "options.html",
+    "chrome_style": true
+  },
   "background": {
     "scripts":["background.js"]
   },
@@ -17,7 +21,7 @@
     }
   ],
   "permissions": [
-    "tabs"
+    "tabs", "storage"
   ],
   "author": "https://github.com/Jorand"
 }
