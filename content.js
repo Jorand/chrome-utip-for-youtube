@@ -7,7 +7,8 @@ var SUCESS_MIN = 2;
 var timer,
 		retryCount = 0,
 		sucessCount = 0, // Count of link found in one time
-		options = {};
+		options = {},
+		link = '';
 
 function init() {
 	getOptions();
@@ -17,7 +18,7 @@ function init() {
 
 		console.log("[INFO] utip4yt: Testing…");
 
-		var link = '';
+		link = '';
 
 		$("paper-button#more").trigger("click");
 
@@ -42,16 +43,16 @@ function init() {
 			init();
 		}
 
-		$('.utip4yt-button').on("click", openUtip(link));
+		$('.utip4yt-button').on("click", openUtip);
 
 		if(options.thumbUp) {
-			$('#top-level-buttons ytd-toggle-button-renderer:first-child > a').on("click", openUtip(link));
+			$('#top-level-buttons ytd-toggle-button-renderer:first-child > a').on("click", openUtip);
 		}
 
 	}, RETRY_DELAY_MS);
 };
 
-function openUtip(link) {
+function openUtip() {
 	if (link) {
 		window.open(link, "popupWindow", "width=600,height=600,scrollbars=yes");
 	}
