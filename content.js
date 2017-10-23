@@ -1,3 +1,5 @@
+(function () {
+
 $(document).ready(init);
 
 var RETRY_DELAY_MS = 800; // time between retry
@@ -8,7 +10,9 @@ var timer,
 		retryCount = 0,
 		sucessCount = 0, // Count of link found in one time
 		options = {},
-		link = '';
+		link = '',
+		layout = '2015',
+		$buttonContainer = null;
 
 function init() {
 	getOptions();
@@ -20,7 +24,7 @@ function init() {
 
 		link = '';
 
-		$("paper-button#more").trigger("click");
+		$("paper-button#more").trigger("click"); //.yt-uix-expander-body
 
 		link = $('a[href*="utip.io"]').first().attr("href");
 
@@ -35,7 +39,18 @@ function init() {
 		}
 
 		if (sucessCount >= SUCESS_MIN) {
-			$('ytd-menu-renderer.ytd-video-primary-info-renderer').prepend('<div class="utip4yt-container"><a class="utip4yt-button"><svg role="img" aria-label="Utip for youtube button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" enable-background="new 0 0 128 128"><path stroke="#FFA644" stroke-width="30" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M93 27v47.1c0 4.1-.8 7.9-2.2 11.5-4.3 10.6-14.6 18-26.8 18-16.2 0-29-13.2-29-29.4v-47.2" fill="none"/><path stroke="#26FF82" stroke-width="30" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M90.8 85.5c-4.3 10.6-14.6 18-26.8 18-16.2 0-29-13.2-29-29.4v-47.1" fill="none"/><path stroke="#BF3BFF" stroke-width="30" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" fill="none" d="M35 74v-47"/><circle fill="#AE29FC" cx="35" cy="74.5" r="15"/><circle fill="#F99430" cx="93" cy="27" r="15"/><circle fill="#24EA74" cx="91" cy="85" r="15"/><title>Utip for youtube</title><desc>Automatically open a popup when you like a youtube video with a utip link in description.</desc></svg></a></div>');
+			setLayout();
+			console.log("[INFO] utip4yt: layout version "+layout);
+
+			var button = '<div class="utip4yt-container"><a class="utip4yt-button"><svg role="img" aria-label="Utip for youtube button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" enable-background="new 0 0 128 128"><path stroke="#FFA644" stroke-width="30" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M93 27v47.1c0 4.1-.8 7.9-2.2 11.5-4.3 10.6-14.6 18-26.8 18-16.2 0-29-13.2-29-29.4v-47.2" fill="none"/><path stroke="#26FF82" stroke-width="30" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M90.8 85.5c-4.3 10.6-14.6 18-26.8 18-16.2 0-29-13.2-29-29.4v-47.1" fill="none"/><path stroke="#BF3BFF" stroke-width="30" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" fill="none" d="M35 74v-47"/><circle fill="#AE29FC" cx="35" cy="74.5" r="15"/><circle fill="#F99430" cx="93" cy="27" r="15"/><circle fill="#24EA74" cx="91" cy="85" r="15"/><title>Utip for youtube</title><desc>Automatically open a popup when you like a youtube video with a utip link in description.</desc></svg></a></div>';
+
+			if (layout == '2015') {
+				$buttonContainer.prepend(button);
+				$('body').addClass('utip4yt-layout-2015');
+			}
+			else {
+				$buttonContainer.prepend(button);
+			}
 		}
 		else if (retryCount < MAX_RETRY) {
 			retryCount++;
@@ -46,7 +61,7 @@ function init() {
 		$('.utip4yt-button').on("click", openUtip);
 
 		if(options.thumbUp) {
-			$('#top-level-buttons ytd-toggle-button-renderer:first-child > a').on("click", openUtip);
+			$('#top-level-buttons ytd-toggle-button-renderer:first-child > a, .like-button-renderer-like-button').on("click", openUtip);
 		}
 
 	}, RETRY_DELAY_MS);
@@ -55,6 +70,27 @@ function init() {
 function openUtip() {
 	if (link) {
 		window.open(link, "popupWindow", "width=600,height=600,scrollbars=yes");
+	}
+}
+
+function setLayout() {
+	if ($('ytd-video-primary-info-renderer').length > 0) {
+		// 2017
+		layout = '2017';
+		$buttonContainer = $('.ytd-video-primary-info-renderer');
+		if ($buttonContainer.find('ytd-menu-renderer').length > 0) {
+			$buttonContainer = $buttonContainer.find('ytd-menu-renderer');
+		}
+	} else if ($('ytg-watch-footer').length > 0) {
+		// 2016 Gaming
+		layout = '2016';
+		$buttonContainer = $('ytg-watch-footer');
+		if ($buttonContainer.find('.actions').length > 0) {
+			$buttonContainer = $buttonContainer.find('.actions');
+		}
+	} else {
+		// 2015
+		$buttonContainer = $('#watch8-sentiment-actions'); // watch8-secondary-actions
 	}
 }
 
@@ -72,10 +108,10 @@ function refresh() {
 
 function getOptions() {
 	chrome.storage.sync.get({
-    thumbUpOption: true
-  }, function(items) {
-    options.thumbUp = items.thumbUpOption;
-  });
+		thumbUpOption: true
+	}, function(items) {
+		options.thumbUp = items.thumbUpOption;
+	});
 }
 
 chrome.extension.onMessage.addListener(function(request, sender, response) {
@@ -84,3 +120,5 @@ chrome.extension.onMessage.addListener(function(request, sender, response) {
 	}
 	return true;
 });
+
+})();

@@ -8,7 +8,7 @@
 	.utip4yt-button {
 		display: block;
 		width: 32px;
-		height: 36px;
+		height: 100%;
 		text-align: center;
 		cursor: pointer;
 	}
@@ -19,3 +19,13 @@
 			height: 20px;
 			margin-top: 9px;
 		}
+
+/* LAYOUT 2015 */
+
+	.utip4yt-layout-2015 .utip4yt-container .utip4yt-button > svg {
+		margin-top: 4px;
+	}
+
+.utip4yt-layout-2015 #watch8-sentiment-actions {
+	position: relative;
+}
