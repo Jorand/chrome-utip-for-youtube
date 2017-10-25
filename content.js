@@ -52,10 +52,17 @@ function init() {
 				$buttonContainer.prepend(button);
 			}
 		}
-		else if (retryCount < MAX_RETRY) {
-			retryCount++;
-			console.log("[INFO] utip4yt: retry ("+retryCount+")");
-			init();
+		else {
+			if (retryCount < MAX_RETRY) {
+				retryCount++;
+				console.log("[INFO] utip4yt: retry ("+retryCount+")");
+				init();
+			}
+			else {
+				if (sucessCount != 0) {
+					refresh();
+				}
+			}
 		}
 
 		$('.utip4yt-button').on("click", openUtip);
@@ -100,6 +107,7 @@ function reset() {
 };
 
 function refresh() {
+	console.log("refresh");
 	reset();
 	retryCount = 0;
 	sucessCount = 0;
