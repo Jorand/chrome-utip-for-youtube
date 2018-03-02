@@ -27,6 +27,11 @@ function init() {
 		$("paper-button#more").trigger("click"); //.yt-uix-expander-body
 
 		link = $('a[href*="utip.io"]').first().attr("href");
+		// Look for a utip link
+		// - #watch-description-text (layout version 2015) 
+		// - #content, #description (new youtube version)
+		var $description = $('#watch-description-text, #content, #description')
+		link = $description.find('a[href*="utip.io"]').first().attr("href");
 
 		if (link) {
 			console.log("[INFO] utip4yt: utip link found");
