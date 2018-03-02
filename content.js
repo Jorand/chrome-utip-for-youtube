@@ -133,8 +133,16 @@ function getOptions() {
 chrome.extension.onMessage.addListener(function(request, sender, response) {
 	// listen to messages sent by the background script
 	console.log("[MSG] utip4yt: ", request.type);
-	if (request.type === 'complete' || request.type === 'active') {
+	if (request.type === 'complete') {
 		refresh();
+	}
+	if (request.type === 'active') {
+		if (sucessCount < SUCESS_MIN) {
+			refresh();
+		}
+		else {
+			console.log("[INFO] utip4yt: utip link already found");
+		}
 	}
 	return true;
 });
