@@ -1,26 +1,49 @@
 .utip4yt-container {
-	position: absolute;
-	top: 0;
-	left: -34px;
-	height: 100%;
+	font-size: 0px;
+	position: relative;
+	text-align: right;
 }
 
 	.utip4yt-button {
 		display: block;
-		width: 32px;
-		height: 100%;
+		width: 36px;
+		height: 36px;
+		margin-right: 8px;
 		text-align: center;
 		cursor: pointer;
+		border-width: 0px;
+		border-style: initial;
+		border-color: initial;
+		border-image: initial;
+		background: transparent;
+		padding: 0px;
+		outline: 0px;
 	}
 
 		.utip4yt-button > svg {
 			display: inline-block;
 			width: 20px;
 			height: 20px;
+			margin: 10px 8px;
+		}
+		
+/* LAYOUT 2015 */
+.old-layout {
+	position: absolute;
+	top: 0;
+	left: -34px;
+	height: 100%;
+}
+	.old-layout .utip4yt-button {
+		width: 32px;
+		height: 100%;
+		margin-right: 0;
+	}
+	
+		.old-layout .utip4yt-button > svg  {
+			margin: 0;
 			margin-top: 9px;
 		}
-
-/* LAYOUT 2015 */
 
 	.utip4yt-layout-2015 .utip4yt-container .utip4yt-button > svg {
 		margin-top: 4px;
@@ -28,4 +51,12 @@
 
 .utip4yt-layout-2015 #watch8-sentiment-actions {
 	position: relative;
+}
+
+/* Iridium - https://github.com/ParticleCore/Iridium */
+#iri-quick-controls-container .utip4yt-button {
+	display: inline-block;
+}
+#iri-quick-controls-container .utip4yt-button svg {
+	margin: 10px 8px;
 }

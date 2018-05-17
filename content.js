@@ -45,14 +45,25 @@ function init() {
 			console.log("[INFO] utip4yt: utip link found");
 			console.log("[INFO] utip4yt: layout version " + layout);
 			
-			var button = '<div class="utip4yt-container"><a class="utip4yt-button"><svg role="img" aria-label="Utip for youtube button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" enable-background="new 0 0 128 128"><path stroke="#FFA644" stroke-width="30" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M93 27v47.1c0 4.1-.8 7.9-2.2 11.5-4.3 10.6-14.6 18-26.8 18-16.2 0-29-13.2-29-29.4v-47.2" fill="none"/><path stroke="#26FF82" stroke-width="30" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M90.8 85.5c-4.3 10.6-14.6 18-26.8 18-16.2 0-29-13.2-29-29.4v-47.1" fill="none"/><path stroke="#BF3BFF" stroke-width="30" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" fill="none" d="M35 74v-47"/><circle fill="#AE29FC" cx="35" cy="74.5" r="15"/><circle fill="#F99430" cx="93" cy="27" r="15"/><circle fill="#24EA74" cx="91" cy="85" r="15"/><title>Utip for youtube</title><desc>Automatically open a popup when you like a youtube video with a utip link in description.</desc></svg></a></div>';
-
-			if (layout == '2015') {
+			var utipButton = '<button class="utip4yt-button"><svg role="img" aria-label="Utip for youtube button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" enable-background="new 0 0 128 128"><path stroke="#FFA644" stroke-width="30" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M93 27v47.1c0 4.1-.8 7.9-2.2 11.5-4.3 10.6-14.6 18-26.8 18-16.2 0-29-13.2-29-29.4v-47.2" fill="none"/><path stroke="#26FF82" stroke-width="30" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M90.8 85.5c-4.3 10.6-14.6 18-26.8 18-16.2 0-29-13.2-29-29.4v-47.1" fill="none"/><path stroke="#BF3BFF" stroke-width="30" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" fill="none" d="M35 74v-47"/><circle fill="#AE29FC" cx="35" cy="74.5" r="15"/><circle fill="#F99430" cx="93" cy="27" r="15"/><circle fill="#24EA74" cx="91" cy="85" r="15"/><title>Utip for youtube</title><desc>Automatically open a popup when you like a youtube video with a utip link in description.</desc></svg></button>';
+			
+			var button = '<div class="utip4yt-container">'+utipButton+'</div>';
+			
+			if ($('#iri-quick-controls-container').length > 0) { // Check for Iridium compatibility - https://github.com/ParticleCore/Iridium
+				$('#iri-quick-controls-container').append(utipButton);
+			}
+			else 
+			if (layout == '2018') {
+				$buttonContainer.before(button);
+			}
+			else if (layout == '2015') {
 				$buttonContainer.prepend(button);
 				$('body').addClass('utip4yt-layout-2015');
+				$('.utip4yt-container').addClass('old-layout');
 			}
 			else {
 				$buttonContainer.prepend(button);
+				$('.utip4yt-container').addClass('old-layout');
 			}
 		}
 		else {
@@ -88,7 +99,12 @@ function openUtip() {
 }
 
 function setLayout() {
-	if ($('ytd-video-primary-info-renderer').length > 0) {
+	if ($('#menu-container').length > 0) {
+		// 2018
+		layout = '2018';
+		$buttonContainer = $('#menu-container');
+	}
+	else if ($('ytd-video-primary-info-renderer').length > 0) {
 		// 2017
 		layout = '2017';
 		$buttonContainer = $('.ytd-video-primary-info-renderer');
