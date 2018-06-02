@@ -125,7 +125,7 @@ function setLayout() {
 }
 
 function reset() {
-	$('.utip4yt-container').remove();
+	$('.utip4yt-container, .utip4yt-button').remove();
 	$('#top-level-buttons ytd-toggle-button-renderer:first-child > a, .utip4yt-button').off("click");
 };
 
