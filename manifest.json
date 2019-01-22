@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Utip for Youtube",
-  "version": "0.7.3",
+  "version": "0.7.4",
   "description": "Automatically open a popup when you like a youtube video with a utip link in description.",
   "icons": {
     "128": "icon-128.png"
