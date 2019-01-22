@@ -22,12 +22,12 @@ function init() {
 		//console.log("[INFO] utip4yt: Testing…");
 		link = '';
 		
-		$("#more").trigger("click"); // Open description
+		$("#meta #more").trigger("click"); // Open description
 		
 		// Look for a utip link
 		// - #watch-description-text (layout version 2015) 
 		// - #content, #description (new youtube version)
-		var $description = $('#watch-description-text, #content, #description')
+		var $description = $('#watch-description-text, #content, #description');
 		link = $description.find('a[href*="utip.io"]').first().attr("href");
 
 		if (link) {
