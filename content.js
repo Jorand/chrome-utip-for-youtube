@@ -22,7 +22,7 @@ function init() {
 		//console.log("[INFO] utip4yt: Testing…");
 		link = '';
 		
-		$("#meta #more").trigger("click"); // Open description
+		//$("#meta #more").trigger("click"); // Open description
 		
 		// Look for a utip link
 		// - #watch-description-text (layout version 2015) 
@@ -146,6 +146,8 @@ function getOptions() {
 	});
 }
 
+var isLoaded = false;
+
 chrome.extension.onMessage.addListener(function(request, sender, response) {
 	// listen to messages sent by the background script
 	console.log("[MSG] utip4yt: ", request.type);
@@ -153,11 +155,14 @@ chrome.extension.onMessage.addListener(function(request, sender, response) {
 		refresh();
 	}
 	if (request.type === 'active') {
-		if (sucessCount < SUCESS_MIN) {
-			refresh();
-		}
-		else {
-			console.log("[INFO] utip4yt: utip link already found");
+		if (!isLoaded) {
+			isLoaded = true;
+			if (sucessCount < SUCESS_MIN) {
+				refresh();
+			}
+			else {
+				console.log("[INFO] utip4yt: utip link already found");
+			}
 		}
 	}
 	return true;
